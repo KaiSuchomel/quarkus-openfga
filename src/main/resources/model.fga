@@ -1,0 +1,22 @@
+model
+  schema 1.1
+
+type user
+
+type plant
+    
+type asset-category
+    relations
+        define read: [role#assignee with samePlant] or update
+        define update: [role#assignee with samePlant] or create
+        define create: [role#assignee with samePlant] or delete
+        define delete: [role#assignee with samePlant]
+        define release: [role#assignee with samePlant]
+
+type role
+    relations
+        define assignee: [user]
+      
+condition samePlant(plantA: string, plantB: string) {
+    plantA == plantB
+}

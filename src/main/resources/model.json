@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.1",
+  "type_definitions": [
+    {
+      "type": "user",
+      "relations": {},
+      "metadata": null
+    },
+    {
+      "type": "plant",
+      "relations": {},
+      "metadata": null
+    },
+    {
+      "type": "asset-category",
+      "relations": {
+        "read": {
+          "union": {
+            "child": [
+              {
+                "this": {}
+              },
+              {
+                "computedUserset": {
+                  "relation": "update"
+                }
+              }
+            ]
+          }
+        },
+        "update": {
+          "union": {
+            "child": [
+              {
+                "this": {}
+              },
+              {
+                "computedUserset": {
+                  "relation": "create"
+                }
+              }
+            ]
+          }
+        },
+        "create": {
+          "union": {
+            "child": [
+              {
+                "this": {}
+              },
+              {
+                "computedUserset": {
+                  "relation": "delete"
+                }
+              }
+            ]
+          }
+        },
+        "delete": {
+          "this": {}
+        },
+        "release": {
+          "this": {}
+        }
+      },
+      "metadata": {
+        "relations": {
+          "read": {
+            "directly_related_user_types": [
+              {
+                "type": "role",
+                "condition": "samePlant",
+                "relation": "assignee"
+              }
+            ]
+          },
+          "update": {
+            "directly_related_user_types": [
+              {
+                "type": "role",
+                "condition": "samePlant",
+                "relation": "assignee"
+              }
+            ]
+          },
+          "create": {
+            "directly_related_user_types": [
+              {
+                "type": "role",
+                "condition": "samePlant",
+                "relation": "assignee"
+              }
+            ]
+          },
+          "delete": {
+            "directly_related_user_types": [
+              {
+                "type": "role",
+                "condition": "samePlant",
+                "relation": "assignee"
+              }
+            ]
+          },
+          "release": {
+            "directly_related_user_types": [
+              {
+                "type": "role",
+                "condition": "samePlant",
+                "relation": "assignee"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "role",
+      "relations": {
+        "assignee": {
+          "this": {}
+        }
+      },
+      "metadata": {
+        "relations": {
+          "assignee": {
+            "directly_related_user_types": [
+              {
+                "type": "user"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "conditions": {
+    "samePlant": {
+      "name": "samePlant",
+      "expression": "plantA == plantB",
+      "parameters": {
+        "plantA": {
+          "type_name": "TYPE_NAME_STRING"
+        },
+        "plantB": {
+          "type_name": "TYPE_NAME_STRING"
+        }
+      }
+    }
+  }
+}
